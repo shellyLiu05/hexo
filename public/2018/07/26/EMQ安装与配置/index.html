@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>EMQ安装与配置 | shellyLiu</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="MQTT简介 基于二进制消息的发布/订阅模式的消息协议 适合需要低功耗和网络带宽有限的IoT场景： 遥感数据、汽车、智能家居、智慧城市、医疗医护    MQTT对比   server 性能 收费 集群     mosquitto 测试例子7000左右 开源免费 不支持   HiveMQ 支持到千万级  亚毫秒级的延迟  高吞吐量 根据设备数收费 支持   VerneMQ 支持百万级 开源免费 无主">
+<meta property="og:type" content="article">
+<meta property="og:title" content="EMQ安装与配置">
+<meta property="og:url" content="http://yoursite.com/2018/07/26/EMQ安装与配置/index.html">
+<meta property="og:site_name" content="shellyLiu">
+<meta property="og:description" content="MQTT简介 基于二进制消息的发布/订阅模式的消息协议 适合需要低功耗和网络带宽有限的IoT场景： 遥感数据、汽车、智能家居、智慧城市、医疗医护    MQTT对比   server 性能 收费 集群     mosquitto 测试例子7000左右 开源免费 不支持   HiveMQ 支持到千万级  亚毫秒级的延迟  高吞吐量 根据设备数收费 支持   VerneMQ 支持百万级 开源免费 无主">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2018/07/26/EMQ安装与配置/log.png">
+<meta property="og:updated_time" content="2018-07-26T02:13:09.289Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="EMQ安装与配置">
+<meta name="twitter:description" content="MQTT简介 基于二进制消息的发布/订阅模式的消息协议 适合需要低功耗和网络带宽有限的IoT场景： 遥感数据、汽车、智能家居、智慧城市、医疗医护    MQTT对比   server 性能 收费 集群     mosquitto 测试例子7000左右 开源免费 不支持   HiveMQ 支持到千万级  亚毫秒级的延迟  高吞吐量 根据设备数收费 支持   VerneMQ 支持百万级 开源免费 无主">
+<meta name="twitter:image" content="http://yoursite.com/2018/07/26/EMQ安装与配置/log.png">
+  
+    <link rel="alternate" href="/atom.xml" title="shellyLiu" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">shellyLiu</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-EMQ安装与配置" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/07/26/EMQ安装与配置/" class="article-date">
+  <time datetime="2018-07-26T01:53:34.000Z" itemprop="datePublished">2018-07-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      EMQ安装与配置
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="MQTT简介"><a href="#MQTT简介" class="headerlink" title="MQTT简介"></a>MQTT简介</h1><ol>
+<li>基于二进制消息的发布/订阅模式的消息协议</li>
+<li>适合需要低功耗和网络带宽有限的IoT场景：<ul>
+<li>遥感数据、汽车、智能家居、智慧城市、医疗医护</li>
+</ul>
+</li>
+</ol>
+<h1 id="MQTT对比"><a href="#MQTT对比" class="headerlink" title="MQTT对比"></a>MQTT对比</h1><table>
+<thead>
+<tr>
+<th>server</th>
+<th>性能</th>
+<th>收费</th>
+<th>集群</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mosquitto</td>
+<td>测试例子7000左右</td>
+<td>开源免费</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td>HiveMQ</td>
+<td>支持到千万级  亚毫秒级的延迟  高吞吐量</td>
+<td>根据设备数收费</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>VerneMQ</td>
+<td>支持百万级</td>
+<td>开源免费</td>
+<td>无主集群技术</td>
+</tr>
+<tr>
+<td>emqttd（EMQ）</td>
+<td>支持单节点100万连接  毫秒级低时延</td>
+<td>开源免费</td>
+<td>分布式集群</td>
+</tr>
+</tbody>
+</table>
+<p>emqttd和VerneMQ：</p>
+<p>性能上相差不大，都是基于Erlang/OTP分布式编程</p>
+<p>emqttd当前有已知的稳定的应用（ZAKER新闻客户端）</p>
+<h1 id="EMQ安装及配置"><a href="#EMQ安装及配置" class="headerlink" title="EMQ安装及配置"></a>EMQ安装及配置</h1><p>##下载路径</p>
+<p><a href="http://emqtt.com/downloads" target="_blank" rel="noopener">http://</a><a href="http://emqtt.com/downloads" target="_blank" rel="noopener">emqtt.com/downloads</a></p>
+<h2 id="启动方法"><a href="#启动方法" class="headerlink" title="启动方法"></a>启动方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">unzip emqttd-ubuntu14.04-v2.2.0.zip</span><br><span class="line">cd emqttds</span><br><span class="line">sudo ./bin/emqttd start</span><br></pre></td></tr></table></figure>
+<p>##配置</p>
+<p>EMQ2.0消息服务器通过etc/目录下配置文件进行设置，</p>
+<p>主要配置文件包括:</p>
+<ol>
+<li>etc/emq.conf            —&gt;   EMQ 消息服务器配置文件</li>
+<li>etc/acl.conf               —&gt;   EMQ 默认ACL规则配置文件</li>
+<li>etc/plugins/*.conf   —&gt;   EMQ 各类插件配置文件</li>
+</ol>
+<p>日志参数配置</p>
+<p><img src="/2018/07/26/EMQ安装与配置/log.png" alt="log"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/07/26/EMQ安装与配置/" data-id="cjk1xbk7c0002r4rhwuq981fw" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/07/26/bbs调试及修改文章显示小结/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">bbs调试及修改文章显示小结</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/07/26/EMQ安装与配置/">EMQ安装与配置</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/26/bbs调试及修改文章显示小结/">bbs调试及修改文章显示小结</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/26/promise/">promise</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/27/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 shelly liu<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
